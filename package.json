@@ -1,0 +1,27 @@
+{
+  "name": "nkp-palliative",
+  "version": "1.0.0",
+  "description": "Palliative Care Information System & Pedigrow-style Patient Care Platform",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "server": "node server/index.js",
+    "build": "cd client && npm run build",
+    "dev": "node server/index.js"
+  },
+  "keywords": [
+    "palliative",
+    "palliative-care",
+    "family-meeting",
+    "advance-care-plan",
+    "pedigrow",
+    "nakornping"
+  ],
+  "author": "NKP Palliative Care Team",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.3.0"
+  }
+}
