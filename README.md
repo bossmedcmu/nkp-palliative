@@ -1,11 +1,21 @@
-# NKP Palliative Care Network Platform
-### ระบบบันทึกข้อมูลและบริหารเครือข่ายผู้ป่วยบริบาลประคับประคอง (Palliative Care Information & Pedigrow-Style System)
+# NKP Palliative Care Cloud Platform
+### กลุ่มงานเวชกรรมสังคม โรงพยาบาลนครพิงค์
+**ระบบบันทึกและเชื่อมโยงข้อมูลการดูแลผู้ป่วยแบบประคับประคอง (Holistic Palliative Care Information System)**
 
-ระบบ Web Application ออกแบบและพัฒนาตามโครงสร้างตั้งต้นจาก **Google Sheets Palliative Care** ร่วมกับคอนเซปต์ **Pedigrow** (Patient-Centric Longitudinal Care Tree) โดยเชื่อมโยงข้อมูลผู้ป่วยตั้งต้น (Core Profile) แตกกิ่งไปสู่บริการเฉพาะทาง (Consult & Triage, Advance Care Plan, Family Meeting, Ward Palliative ขอนตาล, Home Ward PC, Discharge/Terminal Care, และ Grief & Bereavement Care)
+ระบบ Web Application ออกแบบและพัฒนาเพื่อรองรับงานบริบาลผู้ป่วยประคับประคองของ **กลุ่มงานเวชกรรมสังคม โรงพยาบาลนครพิงค์ และศูนย์บริบาลประคับประคองขอนตาล** โดยถอดแบบโครงสร้างจาก **Google Sheets Palliative Care** ของหน่วยงานจริง และเชื่อมโยงข้อมูลผู้ป่วยตั้งต้น (Core Profile) สู่ทุกเส้นทางการดูแล (Consultation, Advance Care Plan, Family Meeting, Ward Palliative ขอนตาล, Home Ward PC, Discharge/Terminal Care, และ Grief & Bereavement Care)
+
+🌐 **เข้าชมระบบออนไลน์ (Online Live Demo):** [https://bossmedcmu.github.io/nkp-palliative/](https://bossmedcmu.github.io/nkp-palliative/)
 
 ---
 
-## 🌟 จุดเด่นและการออกแบบตามโครงสร้าง Google Sheet & Pedigrow
+## 🔐 ข้อมูลเข้าสู่ระบบ (Login Credentials)
+- **ชื่อผู้ใช้ (Username):** `nkp`
+- **รหัสผ่าน (Password):** `Palli@nkp2026`
+*(หมายเหตุ: หน้า Login ออกแบบเพื่อความปลอดภัย ให้ผู้ใช้งานกรอกรหัสผ่านด้วยตนเอง)*
+
+---
+
+## 🌟 โครงสร้างการเชื่อมโยงข้อมูลและการบริการ (Care Pathway Architecture)
 
 ```
                     ┌──────────────────────────────────────────────┐
@@ -35,51 +45,81 @@
                                 └────────────────────────┘             └────────────────────┘
 ```
 
-### 1. แดชบอร์ดบริหารจัดการ (Operational Dashboard)
-- ตัวเลขสถิติเคส Active Consult, ผู้ป่วยใน Ward ขอนตาล, Home Ward PC, ผู้เสียชีวิต, อุปกรณ์ Syringe Bulb ที่ยืมใช้, และนัดหมาย Bereavement ที่รอโทร
-- **ตัววัดความก้าวหน้าการราวน์ประจำวัน**: แจ้งจำนวนเคสที่ตรวจแล้ว (Highlight เขียว) เทียบกับเคสทั้งหมด
-- **Clinical Audit Checklist**: แบบรายงาน รง 501, รง 510, และการให้รหัส ICD-10 `Z51.5` (Palliative care) & `Z71.8` (Counseling) ตามข้อความเตือนใน Google Sheet
+---
 
-### 2. ผังบริการแบบ Pedigrow (Interactive Patient Tree View)
-- เมื่อคลิกดูผู้ป่วยรายใดก็ตาม จะแสดงผังบริการแบบแตกกิ่ง (Visual Longitudinal Journey) พร้อมสถานะของแต่ละโหนด (Root, Consult, ACP, FM, Ward Care, D/C & Bereavement)
-- เข้าถึงข้อมูลเชิงลึก บันทึกความก้าวหน้า และกดแก้ไขหรือเพิ่มกิจกรรมบริการได้โดยตรงจากแท็บของแต่ละบริการ
+## 🚀 ฟังก์ชันหลักของระบบ (Key Features)
 
-### 3. ตารางมุมมองตาม Google Sheets ดั้งเดิม (Spreadsheet Grid Views)
-ถอดแบบคอลัมน์และลำดับหัวตารางตามไฟล์ Google Sheets ครบทั้ง 5 ชีตหลัก:
-- **Sheet `Round Palli`**: ตารางราวน์ผู้ป่วย Consult ปัจจุบัน พร้อมปุ่มกดตรวจแล้วเพื่อ **Highlight สีเขียว** ทันที
-- **Sheet `WardPalli`**: ตารางผู้ป่วยใน Inpatient ศูนย์ขอนตาล (PPS %, Diagnosis, Med, ETT, CPR, FM, สิทธิ, เบอร์ Bereavement, ปัญหา/กิจกรรมการดูแล, Syringe bulb)
-- **Sheet `Home ward PC`**: ตารางผู้ป่วยโรงพยาบาลเสมือนที่บ้าน พร้อมตัวติดตาม รง 510
-- **Sheet `Dead, ปฏิเสธรักษา`**: รวมเคสเสียชีวิตและปฏิเสธการรักษากลับไปเสียชีวิตที่บ้าน พร้อมวันที่ COC รับเคส, Syringe bulb, และคอลัมน์ติดตาม Bereavement (@ 1 wk, 1 mo, 3 mo)
-- **Sheet `DC, Refer`**: เคสจำหน่ายอาการทรงตัว หรือ Refer รพช.
+### 1. หน้าแรก (Home Page)
+- ภาพวาดหมอและทีมงานกำลังราวน์คนไข้ บรรยากาศอบอุ่น สดใส เป็นมิตร
+- ปุ่ม **"โหลดข้อมูลผู้ป่วยจำลอง (30 ราย)"** เพื่อทดสอบระบบได้ทันที
+- ปุ่ม **"ล้างข้อมูลผู้ป่วยทั้งหมด"** เพื่อให้เจ้าหน้าที่สามารถเริ่มต้นบันทึกข้อมูลจริงด้วยตนเอง
+- เข้าสู่หน้าแรกได้ตลอดเวลาเพียงคลิกที่โลโก้ `NKP PALLIATIVE CARE` ด้านบนซ้าย
 
-### 4. เรดาร์ติดตามการสูญเสีย (Grief & Bereavement Radar)
-- เมื่อมีการบันทึกเคสเสียชีวิต หรือปฏิเสธการรักษากลับบ้าน ระบบจะคำนวณและตั้งเวลาเตือนการโทรอัตโนมัติ 3 ระยะ:
-  - 📞 **@ ภายใน 1 สัปดาห์**: แสดงความเสียใจและช่วยเหลือเรื่องเอกสาร
-  - 📞 **@ 1 เดือน**: ติดตามภาวะเศร้าโศกและการปรับตัว
-  - 📞 **@ 3 เดือน**: ประเมินความเสี่ยง Complicated Grief Reaction
-- บันทึกผลการโทร, สถานะสาย, และข้อสังเกตได้ทันที
+### 2. แดชบอร์ดสถิติและการวิเคราะห์เชิงลึก (Clinical & Operational Dashboard)
+- **KPI Cards ครบทุกมิติ**: Active Consult, ผู้ป่วยใน Ward ขอนตาล, Home Ward PC, ผู้เสียชีวิต, อุปกรณ์ Syringe Bulb ที่ยืมใช้, นัดหมาย Bereavement ที่รอโทร
+- **แผนภูมิวงกลมและแท่ง (Charts)**:
+  - สัดส่วนกลุ่มโรคหลัก (Cancer vs Non-Cancer vs Neuro/ESRD)
+  - สถิติ CPR Status (Full CPR vs DNR vs Palliative Sedation)
+  - การกระจายตัวตามสถานที่ต้องการเสียชีวิต (Place of Death: บ้าน, รพ.นครพิงค์, ศูนย์ขอนตาล, รพช.)
+  - ระดับสมรรถนะผู้ป่วย (Palliative Performance Scale - PPS Level)
+  - สิทธิการรักษาและการใช้อุปกรณ์ Syringe Bulb
+- **Clinical Audit Checklist**: แจ้งเตือนแบบรายงาน รง 501, รง 510, และการให้รหัส ICD-10 `Z51.5` (Palliative care) & `Z71.8` (Counseling)
+
+### 3. ทะเบียนและแผนการดูแลผู้ป่วย (Patient Directory & Holistic Care Profile)
+- ค้นหาผู้ป่วยตามชื่อ-สกุล, HN, โรคหลัก, หรือหอผู้ป่วย
+- แผนผังเส้นทางการดูแลรายบุคคล (Visual Longitudinal Care Pathway) แบ่งตาม 6 มิติบริการ:
+  1. ข้อมูลผู้ป่วยตั้งต้น (Core Profile)
+  2. การรับปรึกษาและการราวน์ (Consult & Round History)
+  3. แผนการดูแลล่วงหน้า (Advance Care Plan - ACP & Code Status)
+  4. การประชุมครอบครัว (Family Meeting - FM Summary & Goals of Care)
+  5. บันทึกการดูแลในหอผู้ป่วย (Ward Palliative & Home Ward PC Logs)
+  6. การจำหน่ายและการดูแลผู้สูญเสีย (Discharge, COC & Bereavement Radar)
+
+### 4. ตารางข้อมูลแยกตาม Google Sheets ดั้งเดิม (Spreadsheet Grid Views)
+แสดงผลรายชื่อผู้ป่วยตรงตามแต่ละชีตต้นฉบับ 100%:
+- **ชีต `Round Palli`**: รายชื่อเคส Consult ปัจจุบัน พร้อมปุ่มคลิกตรวจแล้วเพื่อ Highlight สีเขียวทันที
+- **ชีต `Ward ขอนตาล`**: รายชื่อผู้ป่วยใน Inpatient ศูนย์ขอนตาล พร้อม PPS %, แผนยา, ETT, CPR, สถานะ FM, สิทธิ, เบอร์โทรญาติ
+- **ชีต `Home Ward PC`**: รายชื่อผู้ป่วยโรงพยาบาลเสมือนที่บ้าน พร้อมตัวติดตาม รง 510
+- **ชีต `Dead & ปฏิเสธรักษา`**: รวมเคสเสียชีวิตและปฏิเสธการรักษาเพื่อกลับไปเสียชีวิตที่บ้าน พร้อมวันที่ COC รับเคส, Syringe Bulb, และสถานะการติดตาม Bereavement 3 ระยะ
+- **ชีต `D/C & Refer`**: รายชื่อเคสจำหน่ายอาการทรงตัว หรือส่งต่อไป รพช.
+
+### 5. เรดาร์ติดตามการสูญเสีย (Grief & Bereavement Radar)
+ระบบอัตโนมัติเมื่อมีผู้ป่วยเสียชีวิตหรือส่งกลับบ้าน:
+- 📞 **@ ภายใน 1 สัปดาห์**: แสดงความเสียใจและประสานเอกสาร
+- 📞 **@ 1 เดือน**: ติดตามภาวะเศร้าโศกและการปรับตัว
+- 📞 **@ 3 เดือน**: ประเมินความเสี่ยง Complicated Grief Reaction
+- บันทึกผลการโทร, สถานะสาย, และระดับความเสี่ยงได้โดยตรง
+
+### 6. หน้าเกี่ยวกับระบบจริง (About Social Medicine Department)
+- ข้อมูลความเป็นมา โครงสร้างองค์กร พันธกิจ และขอบเขตบริการของกลุ่มงานเวชกรรมสังคม โรงพยาบาลนครพิงค์
 
 ---
 
 ## 🛠️ เทคโนโลยีที่ใช้ (Tech Stack)
 
-- **Frontend**: React 19 + TypeScript + Vite + Tailwind CSS + Lucide Icons
-- **Backend API**: Node.js v24 + Express + Native `node:sqlite` (SQLite Database ประสิทธิภาพสูง ไม่ต้องติดตั้งฐานข้อมูลภายนอก)
-- **Database**: SQLite พร้อมโครงสร้างตารางครอบคลุม:
-  - `patients`, `consults`, `advance_care_plans`, `family_meetings`, `ward_palliative_records`, `discharges`, `bereavement_followups`
+- **Frontend**: React 19 + TypeScript + Vite + Tailwind CSS + Lucide Icons + Recharts
+- **Backend API**: Node.js + Express + Native SQLite (`node:sqlite`)
+- **Offline / Static Support**: LocalStorage Data Adapter จำลองฐานข้อมูลแบบครบวงจร รองรับการทำงานบน GitHub Pages แบบ Serverless โดยไม่ต้องพึ่งพาเซิร์ฟเวอร์ภายนอก
 
 ---
 
-## 🚀 วิธีการรันระบบ (How to Run)
+## 💻 วิธีการรันระบบบนเครื่องคอมพิวเตอร์ (Local Setup)
 
-1. รันเซิร์ฟเวอร์แบบรวม (Full-Stack Single Command):
 ```bash
+# 1. ติดตั้ง Dependencies
+npm install
+cd client && npm install && cd ..
+
+# 2. เริ่มต้นรันเซิร์ฟเวอร์แบบ Full-Stack
 npm start
-```
-หรือ
-```bash
-node server/index.js
+
+# 3. เปิดเบราว์เซอร์
+# เข้าใช้งานที่: http://localhost:3001
 ```
 
-2. เปิดเว็บเบราว์เซอร์ที่:
-👉 **http://localhost:3001**
+---
+
+## 👥 หน่วยงานรับผิดชอบ
+**กลุ่มงานเวชกรรมสังคม โรงพยาบาลนครพิงค์**  
+ศูนย์บริบาลประคับประคองขอนตาล และบริการ Home Ward Palliative Care  
+อำเภอแม่ริม จังหวัดเชียงใหม่

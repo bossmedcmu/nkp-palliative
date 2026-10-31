@@ -182,16 +182,16 @@ export const PedigrowProfile: React.FC<PedigrowProfileProps> = ({
         </div>
       </div>
 
-      {/* PEDIGROW-STYLE INTERACTIVE LONGITUDINAL SERVICE TREE */}
+      {/* INTERACTIVE LONGITUDINAL SERVICE TREE & PATHWAY */}
       <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
         <div className="flex items-center justify-between mb-4">
           <div>
             <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
               <Activity className="w-5 h-5 text-teal-600" />
-              แผนผังบริการเครือข่าย Pedigrow-Style Palliative Care
+              แผนผังการดูแลผู้ป่วยแบบองค์รวม (Holistic Palliative Care Pathway)
             </h2>
             <p className="text-xs text-slate-500 mt-0.5">
-              แสดงความเชื่อมโยงของข้อมูลผู้ป่วยตั้งต้น แตกกิ่งตาม Service ต่างๆ (Consult, ACP, FM, Ward Palliative, D/C & Bereavement)
+              แสดงความเชื่อมโยงของข้อมูลผู้ป่วยตั้งต้น และแตกกิ่งตาม Service ต่างๆ (Consult, ACP, FM, Ward Palliative, D/C & Bereavement)
             </p>
           </div>
           <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 border border-slate-200">

@@ -68,7 +68,7 @@ export const PatientDirectory: React.FC<PatientDirectoryProps> = ({
               ทะเบียนผู้ป่วย Palliative Care ทั้งหมด (Patient Directory)
             </h2>
             <p className="text-xs text-slate-500 mt-0.5">
-              ศูนย์รวมข้อมูลผู้ป่วยตั้งต้นและทางเข้าสู่ระบบผังบริการแบบ Pedigrow ({patients.length} รายชื่อในระบบ)
+              ศูนย์รวมข้อมูลผู้ป่วยตั้งต้นและแผนผังการดูแลผู้ป่วยแบบองค์รวม ({patients.length} รายชื่อในระบบ)
             </p>
           </div>
 
@@ -197,7 +197,7 @@ export const PatientDirectory: React.FC<PatientDirectoryProps> = ({
               </div>
 
               <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-teal-700">
-                <span>เปิดผัง Pedigrow & บริการ</span>
+                <span>เปิดแผนการดูแล & บริการ</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </div>
             </div>

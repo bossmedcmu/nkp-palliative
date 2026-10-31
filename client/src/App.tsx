@@ -289,7 +289,7 @@ export function App() {
               }`}
             >
               <Users className="w-4 h-4" />
-              ทะเบียนผู้ป่วย & ผัง Pedigrow ({patients.length})
+              ทะเบียนและแผนการดูแลผู้ป่วย ({patients.length})
             </button>
 
             <button
@@ -396,7 +396,7 @@ export function App() {
 
             {loadingDetail ? (
               <div className="p-16 text-center text-slate-500 bg-white rounded-3xl border border-slate-200">
-                กำลังโหลดแผนผัง Pedigrow และข้อมูลบริการผู้ป่วย...
+                กำลังโหลดแผนการดูแลและข้อมูลบริการผู้ป่วย...
               </div>
             ) : patientDetail ? (
               <PedigrowProfile
@@ -509,8 +509,8 @@ export function App() {
       {/* Footer */}
       <footer className="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
         <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-2">
-          <span>โรงพยาบาลนครพิงค์ • ศูนย์บริบาลประคับประคองขอนตาล & Home Ward PC</span>
-          <span>ระบบบันทึกข้อมูล Palliative Care (โครงสร้างอิง Google Sheets & Pedigrow Concept)</span>
+          <span>กลุ่มงานเวชกรรมสังคม โรงพยาบาลนครพิงค์ • ศูนย์บริบาลประคับประคองขอนตาล & Home Ward PC</span>
+          <span>ระบบบันทึกและเชื่อมโยงข้อมูลการดูแลผู้ป่วยแบบประคับประคอง (Palliative Care Cloud)</span>
         </div>
       </footer>
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Stethoscope, Lock, User, AlertCircle, Heart, Building2, CheckCircle2 } from 'lucide-react';
+import { Stethoscope, Lock, User, AlertCircle, Heart, Building2 } from 'lucide-react';
 
 interface LoginProps {
   onLoginSuccess: (user: { username: string; name: string }) => void;
@@ -15,8 +15,8 @@ export const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
     if (username.trim() === 'nkp' && password === 'Palli@nkp2026') {
       const userData = {
         username: 'nkp',
-        name: 'ทีมบริบาลประคับประคอง รพ.นครพิงค์ & ขอนตาล',
-        role: 'Palliative Care Interdisciplinary Team',
+        name: 'กลุ่มงานเวชกรรมสังคม รพ.นครพิงค์',
+        role: 'Social Medicine Palliative Network',
         loginTime: new Date().toISOString()
       };
       localStorage.setItem('nkp_palli_auth', JSON.stringify(userData));
@@ -24,12 +24,6 @@ export const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
     } else {
       setError('ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง (Username หรือ Password ผิดพลาด)');
     }
-  };
-
-  const handleFillDemo = () => {
-    setUsername('nkp');
-    setPassword('Palli@nkp2026');
-    setError('');
   };
 
   return (
@@ -41,7 +35,7 @@ export const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
             <Stethoscope className="w-8 h-8 text-white" />
           </div>
           <span className="text-[11px] font-bold uppercase tracking-wider bg-white/20 px-3 py-1 rounded-full text-teal-100">
-            โรงพยาบาลนครพิงค์ จ.เชียงใหม่
+            กลุ่มงานเวชกรรมสังคม โรงพยาบาลนครพิงค์
           </span>
           <h1 className="text-2xl font-black mt-2 tracking-tight">NKP PALLIATIVE CARE</h1>
           <p className="text-xs text-teal-100 mt-1 font-medium">
@@ -57,7 +51,7 @@ export const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
         <div className="p-8">
           <div className="text-center mb-6">
             <h2 className="text-lg font-bold text-slate-900">เข้าสู่ระบบ (Sign In)</h2>
-            <p className="text-xs text-slate-500 mt-0.5">กรุณาเข้าสู่ระบบเพื่อเข้าถึงข้อมูลผู้ป่วยและผังบริการ Pedigrow</p>
+            <p className="text-xs text-slate-500 mt-0.5">กรุณาเข้าสู่ระบบเพื่อเข้าถึงข้อมูลและแผนการดูแลผู้ป่วย</p>
           </div>
 
           {error && (
@@ -109,25 +103,12 @@ export const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
               เข้าสู่ระบบ Palliative Care
             </button>
           </form>
-
-          {/* Preset Helper for Reviewers/Users */}
-          <div className="mt-6 pt-5 border-t border-slate-100 text-center">
-            <p className="text-[11px] text-slate-500 mb-2">บัญชีทดสอบที่กำหนด:</p>
-            <button
-              type="button"
-              onClick={handleFillDemo}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-teal-50 hover:bg-teal-100 text-teal-800 text-[11px] font-semibold border border-teal-200 transition-colors"
-            >
-              <CheckCircle2 className="w-3.5 h-3.5 text-teal-600" />
-              <span>เติมรหัสผ่านอัตโนมัติ (nkp / Palli@nkp2026)</span>
-            </button>
-          </div>
         </div>
 
         {/* Footer */}
-        <div className="bg-slate-50 py-3 px-6 border-t border-slate-100 text-center text-[11px] text-slate-500 flex items-center justify-center gap-1.5">
+        <div className="bg-slate-50 py-3.5 px-6 border-t border-slate-100 text-center text-[11px] text-slate-500 flex items-center justify-center gap-1.5">
           <Building2 className="w-3.5 h-3.5 text-slate-400" />
-          <span>ศูนย์บริบาลประคับประคองขอนตาล & หอผู้ป่วย รพ.นครพิงค์</span>
+          <span>กลุ่มงานเวชกรรมสังคม โรงพยาบาลนครพิงค์ & ศูนย์บริบาลประคับประคองขอนตาล</span>
         </div>
       </div>
     </div>

@@ -1,42 +1,78 @@
 # MASTER PROMPT: NKP Palliative Care Network Platform
-## ระบบบันทึกข้อมูลและบริหารเครือข่ายบริบาลประคับประคอง (Pedigrow-Style Longitudinal System)
+## กลุ่มงานเวชกรรมสังคม โรงพยาบาลนครพิงค์
+### ระบบบันทึกและเชื่อมโยงข้อมูลการดูแลผู้ป่วยแบบประคับประคอง (Holistic Palliative Care Information System)
 
-เอกสาร Master Prompt ฉบับสมบูรณ์สำหรับสถาปัตยกรรมและกระบวนการสร้างระบบ **NKP Palliative Care Network** เพื่อใช้เป็นคู่มือแม่แบบ (Master Blueprint) ในการสร้าง ขยาย หรือพัฒนาต่อยอดระบบ
+เอกสาร Master Prompt ฉบับสมบูรณ์สำหรับสถาปัตยกรรมและกระบวนการสร้างระบบ **NKP Palliative Care Network Platform** เพื่อใช้เป็นแม่แบบและข้อกำหนดทางเทคนิค (Master Blueprint & Specifications) ในการสร้าง ขยาย หรือต่อยอดระบบทั้งระบบ
+
+🌐 **Online Demo:** [https://bossmedcmu.github.io/nkp-palliative/](https://bossmedcmu.github.io/nkp-palliative/)  
+🏢 **หน่วยงานรับผิดชอบ:** กลุ่มงานเวชกรรมสังคม โรงพยาบาลนครพิงค์ และศูนย์บริบาลประคับประคองขอนตาล
 
 ---
 
 ## 1. วัตถุประสงค์และปรัชญาของระบบ (Executive Overview & Philosophy)
 
-ระบบออกแบบขึ้นเพื่อแก้ไขปัญหาความกระจัดกระจายของข้อมูลผู้ป่วยระยะท้าย (Palliative Care Fragmentation) โดยยึดหลักการ:
-1. **Patient-Centric Pedigrow Concept (ผังบริการแบบแตกกิ่ง)**: ยึดข้อมูลผู้ป่วยตั้งต้น (Core Master Profile) เป็นศูนย์กลาง แล้วเชื่อมโยงแตกกิ่งไปยังบริการเฉพาะทาง (Consult & Triage, Advance Care Plan, Family Meeting, Ward Palliative, Discharge & COC, และ Grief & Bereavement)
-2. **Google Sheets Structural Parity (ถอดแบบโครงสร้างจากชีตงานจริง)**: รองรับหัวคอลัมน์ ข้อกำหนดทางคลินิก และลำดับข้อมูลตามชีตงานจริงของโรงพยาบาลนครพิงค์ ครบทั้ง 5 ชีตหลัก (`Round Palli`, `WardPalli`, `Home ward PC`, `Dead, ปฏิเสธรักษา`, `DC, Refer`) พร้อมตรรกะการตรวจราวน์แล้วไฮไลท์สีเขียวอัตโนมัติ
+ระบบออกแบบขึ้นเพื่อแก้ไขปัญหาความกระจัดกระจายของข้อมูลผู้ป่วยระยะท้าย (Palliative Care Fragmentation) ของกลุ่มงานเวชกรรมสังคม โรงพยาบาลนครพิงค์ โดยยึดหลักการสำคัญ:
+
+1. **Holistic Patient-Centric Care Pathway (ผังการดูแลผู้ป่วยแบบองค์รวม)**: ยึดข้อมูลผู้ป่วยตั้งต้น (Core Master Profile) เป็นศูนย์กลาง แล้วเชื่อมโยงแตกกิ่งไปยังบริการเฉพาะทาง (Consult & Triage, Advance Care Plan, Family Meeting, Ward Palliative ขอนตาล, Home Ward PC, Discharge & COC, และ Grief & Bereavement)
+2. **Google Sheets Structural Parity (ถอดแบบโครงสร้างจากชีตงานจริง 100%)**: รองรับหัวคอลัมน์ ข้อกำหนดทางคลินิก และลำดับข้อมูลตามชีตงานจริงของโรงพยาบาลนครพิงค์ ครบทั้ง 5 ชีตหลัก (`Round Palli`, `Ward ขอนตาล`, `Home Ward PC`, `Dead, ปฏิเสธรักษา`, `DC, Refer`) พร้อมตรรกะการตรวจราวน์แล้วไฮไลท์สีเขียวอัตโนมัติ
 3. **Continuous Subcutaneous Infusion & Device Tracking**: ติดตามเครื่อง Syringe Bulb / Syringe Driver สำหรับการให้ยา Morphine และ Haloperidol อย่างต่อเนื่องทั้งในหอผู้ป่วยและที่บ้าน
 4. **Automated Grief & Bereavement Radar**: คำนวณวันนัดหมายและเตือนการโทรติดตามญาติผู้สูญเสีย 3 ระยะมาตรฐาน (@ ภายใน 1 สัปดาห์, @ 1 เดือน, @ 3 เดือน) อัตโนมัติเมื่อผู้ป่วยเสียชีวิตหรือจำหน่ายแบบ terminal discharge
+5. **Zero-Setup Serverless Capability**: สถาปัตยกรรม Dual-Engine (SQLite Backend API + LocalStorage Client Engine) ที่ทำงานได้ทั้งโหมด Full-Stack ปกติ และโหมด Static บน GitHub Pages ได้อย่างสมบูรณ์แบบโดยไม่ต้องพึ่งพาเซิร์ฟเวอร์ภายนอก
 
 ---
 
 ## 2. ประตูด่านตรวจการเข้าถึง (Authentication Barrier)
 
-เพื่อความปลอดภัยและความเป็นส่วนตัวของข้อมูลผู้ป่วย (PDPA & Medical Privacy) ระบบมีหน้าต่าง Login ขวางกั้นก่อนเข้าใช้งาน:
+เพื่อความปลอดภัยและความเป็นส่วนตัวของข้อมูลผู้ป่วย (PDPA & Medical Privacy) ระบบมีหน้าต่าง Login ขวางกั้นก่อนเข้าสู่ระบบ:
 - **Username**: `nkp`
 - **Password**: `Palli@nkp2026`
-- **Session Management**: บันทึกสถานะผู้ใช้งานลงใน `localStorage` (`nkp_palli_auth`) แสดงชื่อและบทบาททีมงานใน Navbar พร้อมปุ่มออกจากระบบ (Sign Out)
+- **User Entry Rule**: หน้า Login กำหนดให้ผู้ใช้ต้องกรอก Username และ Password ด้วยตนเอง (ไม่มีปุ่มกรอกอัตโนมัติ) เพื่อให้เป็นไปตามหลักมาตรฐานการยืนยันตัวตน
+- **Session Management**: บันทึกสถานะผู้ใช้งานลงใน `localStorage` (`nkp_palli_auth`) แสดงชื่อและหน่วยงาน "กลุ่มงานเวชกรรมสังคม โรงพยาบาลนครพิงค์" ใน Navbar พร้อมปุ่มออกจากระบบ (Sign Out)
 
 ---
 
 ## 3. หน้าแรกระบบ (Landing / Home Page)
 
-- **Hero Banner**: ภาพวาดการ์ตูนสดใส (Warm Storybook Theme) รูปทีมแพทย์และพยาบาลกำลังตรวจราวน์คนไข้ข้างเตียงอย่างอบอุ่นและเปี่ยมด้วยความเห็นอกเห็นใจ
+- **Hero Banner**: ภาพวาดการ์ตูนสดใส อบอุ่น รูปทีมแพทย์และพยาบาลกำลังตรวจราวน์คนไข้ข้างเตียงอย่างอ่อนโยน
 - **Initial Clean State**: เริ่มต้นด้วยหน้าจอสะอาด ไม่มีตารางข้อมูลรกรุงรัง
+- **การเข้าสู่หน้าแรก**: ผู้ใช้สามารถคลิกที่โลโก้ `NKP PALLIATIVE CARE` บริเวณมุมบนซ้ายของหน้าจอได้ตลอดเวลาเพื่อกลับมาที่หน้านี้
 - **ปุ่มปฏิบัติการหลัก 4 ปุ่ม**:
-  1. 📥 **"โหลดข้อมูลผู้ป่วยจำลอง (30 ราย)"**: ป้อนเคสจำลอง 30 รายการที่ครอบคลุมทุกมิติ ทุกสถานะโรค ทุกวอร์ด และทุกบริการ
-  2. 🗑️ **"ล้างข้อมูลทั้งหมด (Reset Database)"**: ล้างข้อมูลออกทั้งหมดเป็นระบบเปล่า เพื่อให้ผู้ใช้ทดลองกรอกเคสจริงด้วยตนเอง พร้อม Modal ยืนยันป้องกันการกดพลาด
-  3. ➕ **"+ บันทึกรับเคส Consult ใหม่"**: เปิดฟอร์มรับเคสผู้ป่วยใหม่
-  4. 📊 **"เข้าสู่กระดานภาพรวม (Dashboard)"**: เข้าสู่การวิเคราะห์แดชบอร์ด
+  1. 📥 **"โหลดข้อมูลผู้ป่วยจำลอง (30 ราย)"**: ป้อนเคสจำลอง 30 รายการที่ครอบคลุมทุกมิติ ทุกสถานะโรค ทุกวอร์ด ทุกชีตตาราง และนัดหมายเรดาร์
+  2. 🗑️ **"ล้างข้อมูลทั้งหมด (Reset Database)"**: ล้างข้อมูลออกทั้งหมดเป็นระบบเปล่า เพื่อให้เจ้าหน้าที่ทดลองกรอกเคสจริงด้วยตนเอง พร้อม Modal ยืนยัน
+  3. ➕ **"+ บันทึกรับเคส Consult ใหม่"**: เปิดฟอร์มรับเคสผู้ป่วยใหม่เข้าสู่ระบบ
+  4. 📊 **"เข้าสู่กระดานภาพรวม (Dashboard)"**: เข้าสู่การวิเคราะห์แดชบอร์ดสถิติ
 
 ---
 
 ## 4. โครงสร้างฐานข้อมูลและโมเดลข้อมูล (Domain Data Models)
+
+```
+                    ┌──────────────────────────────────────────────┐
+                    │      ข้อมูลผู้ป่วยตั้งต้น (Core Patient Profile)  │
+                    │   HN, AN, ชื่อ-สกุล, อายุ, สิทธิ, Dx, Caregiver │
+                    └──────────────────────┬───────────────────────┘
+                                           │
+         ┌───────────────────┬─────────────┴───────┬────────────────────┐
+         ▼                   ▼                     ▼                    ▼
+┌──────────────────┐┌──────────────────┐┌──────────────────┐┌──────────────────┐
+│ 1. Consult/Round ││ 2. ACP / Code    ││ 3. Family Meeting││ 4. Ward Palli    │
+│  - หอผู้ป่วยต้นทาง ││  - CPR / DNR     ││  - สมาชิกครอบครัว ││  - ศูนย์ขอนตาล   │
+│  - ความเร่งด่วน   ││  - ETT / reETT   ││  - Illness under ││  - Home Ward PC  │
+│  - Highlight เขียว││  - Med comfort   ││  - Goals of Care ││  - PPS Score %   │
+│  - รง 501        ││  - POD (ที่เสียชีวิต)││  - ข้อสรุปมติ FM ││  - ปัญหา/การพยาบาล │
+└──────────────────┘└──────────────────┘└──────────────────┘└─────────┬────────┘
+                                                                       │
+                                           ┌───────────────────────────┴──────────┐
+                                           ▼                                      ▼
+                                ┌────────────────────────┐             ┌────────────────────┐
+                                │ 5. D/C & Terminal Care │             │ 6. Grief Radar     │
+                                │  - Dead/ปฏิเสธการรักษา  ├────────────►│  - @ ภายใน 1 wk    │
+                                │  - เสียชีวิตใน รพ.      │ (Auto-Plan) │  - @ 1 เดือน       │
+                                │  - Refer รพช./ขอนตาล   │             │  - @ 3 เดือน       │
+                                │  - ศูนย์ COC รับเคส    │             │  - ประเมิน Grief   │
+                                │  - มี Syringe Bulb     │             │  - บันทึกการโทร    │
+                                └────────────────────────┘             └────────────────────┘
+```
 
 ### 4.1 ตารางผู้ป่วยหลัก (`patients`)
 - `id`: รหัสผู้ป่วย (TEXT PRIMARY KEY)
@@ -50,7 +86,7 @@
 - `insurance`: สิทธิการรักษา เช่น 'UC (บัตรทอง)', 'เบิกจ่ายตรง', 'ประกันสังคม'
 - `main_diagnosis`: การวินิจฉัยโรคหลัก (TEXT NOT NULL)
 - `secondary_diagnosis`: โรคร่วม (TEXT)
-- `current_ward`: หอผู้ป่วยปัจจุบัน เช่น 'Med 1', 'Ward Palliative ขอนตาล', 'Home Ward PC'
+- `current_ward`: หอผู้ป่วยปัจจุบัน เช่น 'Med 1', 'Ward ขอนตาล', 'Home Ward PC'
 - `current_bed`: เตียง
 - `primary_caregiver`: ชื่อผู้ดูแลหลัก
 - `caregiver_relation`: ความสัมพันธ์กับผู้ป่วย
@@ -141,12 +177,13 @@
 
 ## 5. มุมมองตารางถอดแบบ Google Sheets (Spreadsheet Views)
 
-ระบบจำลองตารางให้ตรงกับ Google Sheets ดั้งเดิม 5 มุมมองหลัก:
+ระบบแสดงผลรายชื่อผู้ป่วยตรงตามแต่ละชีตต้นฉบับ 100% ทั้งในโหมดเชื่อมต่อเซิร์ฟเวอร์ และโหมด LocalStorage:
 1. **Sheet `Round Palli`**: คอลัมน์ No, ชื่อ-สกุล, อายุ, HN, ward, Bed, Dx, ACP (Med, ETT, CPR), POD, FM, รง 501, เข้าเกณฑ์ย้าย ward, เบอร์ตาม bereavement, ความก้าวหน้า/หมายเหตุ พร้อมปุ่มคลิกไฮไลท์แถวสีเขียวเมื่อราวน์แล้ว
-2. **Sheet `WardPalli`**: คอลัมน์ No, ชื่อ-สกุล, อายุ, HN, From ward, Bed, Diagnosis, ACP, P (PPS %), FM, สิทธิ รพ, ชื่อและเบอร์ Bereavement, ปัญหา/กิจกรรมการดูแล, Syringe bulb
-3. **Sheet `Home ward PC`**: คอลัมน์สำหรับผู้ป่วย Hospital at Home พร้อมติดตามแบบรายงาน รง 510
-4. **Sheet `Dead, ปฏิเสธรักษา`**: รวมเคสเสียชีวิตทุกแห่ง พร้อมวันที่ COC รับเคส, Syringe bulb, และคอลัมน์ติดตาม Bereavement (@ 1 wk, @ 1 month, @ 3 month)
-5. **Sheet `DC, Refer`**: เคสจำหน่ายอาการทรงตัว หรือ Refer รพช.
+2. **Sheet `Ward ขอนตาล`**: คอลัมน์ No, ชื่อ-สกุล, อายุ, HN, From ward, Bed, Diagnosis, ACP, P (PPS %), FM, สิทธิ รพ, ชื่อและเบอร์ Bereavement, ปัญหา/กิจกรรมการดูแล, Syringe bulb
+3. **Sheet `Home Ward PC`**: คอลัมน์สำหรับผู้ป่วย Hospital at Home พร้อมติดตามแบบรายงาน รง 510
+4. **Sheet `Dead & ปฏิเสธรักษา`**: รวมเคสเสียชีวิตทุกแห่ง พร้อมวันที่ COC รับเคส, Syringe bulb, และคอลัมน์ติดตาม Bereavement (@ 1 wk, @ 1 month, @ 3 month)
+5. **Sheet `D/C & Refer`**: เคสจำหน่ายอาการทรงตัว หรือ Refer รพช.
+6. **Sheet `เรดาร์ Bereavement`**: หน้าตารางจัดคิวโทรติดตามญาติผู้สูญเสียทั้ง 3 ระยะ แสดง Due date, ผู้รับสาย, เบอร์โทร และบันทึกผลการโทร
 
 ---
 
@@ -155,18 +192,18 @@
 แสดงผลข้อมูลเชิงลึกในทุกมิติ:
 - **Card KPIs**: ผู้ป่วย Consult, ผู้ป่วยในขอนตาล, ผู้ป่วย Home Ward PC, ผู้เสียชีวิต, การใช้ Syringe Bulb, นัดโทร Bereavement
 - **Daily Round Progress Bar**: ความก้าวหน้าการตรวจราวน์ประจำวันเทียบกับเคสทั้งหมด
-- **Chart 1: Care Setting Trajectory**: สัดส่วนผู้ป่วยตาม Setting
-- **Chart 2: Diagnosis Classification**: มะเร็ง (Cancer) vs โรคไม่ใช่มะเร็งระยะท้าย (Non-Cancer: ESRD, Heart Failure, COPD, Stroke, Dementia)
-- **Chart 3: Palliative Performance Scale (PPS) Histogram**: การกระจายตัวของระดับสมรรถนะผู้ป่วย
-- **Chart 4: ACP Concordance Radar**: อัตรา DNR, อัตราไม่ใส่ท่อช่วยหายใจ (No ETT), และความต้องการสถานที่เสียชีวิต (POD: บ้าน, ขอนตาล, รพ., รพช.)
-- **Chart 5: Bereavement Radar & Grief Severity**: อัตราการโทรติดตามสำเร็จ 3 ระยะ และผลการประเมินสภาวะทางอารมณ์
-- **Chart 6: Clinical Quality & Audit Compliance**: อัตราความสมบูรณ์ของแบบรายงาน รง 501, รง 510 และการให้รหัส ICD-10 Z51.5 / Z71.8
+- **Care Setting Trajectory**: สัดส่วนผู้ป่วยตาม Setting
+- **Diagnosis Classification**: มะเร็ง (Cancer) vs โรคไม่ใช่มะเร็งระยะท้าย (Non-Cancer: ESRD, Heart Failure, COPD, Stroke, Dementia)
+- **Palliative Performance Scale (PPS) Histogram**: การกระจายตัวของระดับสมรรถนะผู้ป่วย
+- **ACP Concordance Radar**: อัตรา DNR, อัตราไม่ใส่ท่อช่วยหายใจ (No ETT), และความต้องการสถานที่เสียชีวิต (POD: บ้าน, ขอนตาล, รพ., รพช.)
+- **Bereavement Radar & Grief Severity**: อัตราการโทรติดตามสำเร็จ 3 ระยะ และผลการประเมินสภาวะทางอารมณ์
+- **Clinical Quality & Audit Compliance**: อัตราความสมบูรณ์ของแบบรายงาน รง 501, รง 510 และการให้รหัส ICD-10 Z51.5 / Z71.8
 
 ---
 
 ## 7. ข้อมูลอ้างอิงระบบจริง (Real-World System References)
 
-- **โรงพยาบาลนครพิงค์**: โรงพยาบาลศูนย์ประจำจังหวัดเชียงใหม่ สังกัดกระทรวงสาธารณสุข
+- **กลุ่มงานเวชกรรมสังคม โรงพยาบาลนครพิงค์**: กลุ่มงานผู้รับผิดชอบงานบริการปฐมภูมิ บริบาลประคับประคอง และเวชศาสตร์ชุมชน
 - **ศูนย์บริบาลประคับประคองขอนตาล**: หอผู้ป่วย Palliative Care Unit 12 เตียง ต.ดอนแก้ว อ.แม่ริม
 - **ศูนย์การดูแลต่อเนื่อง (COC - Continuity of Care)**: เครือข่ายประสานการเยี่ยมบ้านและเชื่อมโยง รพ.สต. และ รพช. ในพื้นที่
 - **พ.ร.บ. สุขภาพแห่งชาติ พ.ศ. 2550 มาตรา 12**: สิทธิการทำหนังสือแสดงเจตนาไม่ประสงค์จะรับบริการสาธารณสุขที่เป็นไปเพียงเพื่อยืดการตายในวาระสุดท้ายของชีวิต (Living Will)
@@ -174,7 +211,7 @@
 
 ---
 
-## 8. วิธีการนำระบบไปใช้งาน (Deployment & Running)
+## 8. วิธีการรันและเผยแพร่ระบบ (Running & Deployment)
 
 ### 8.1 ใช้งานแบบ Localhost (Full-Stack Mode)
 ```bash
@@ -183,12 +220,12 @@ npm install
 cd client && npm install && cd ..
 
 # 2. คอมไพล์โปรเจกต์
-npm run build
+cd client && npm run build && cd ..
 
 # 3. รันระบบ
 npm start
-# เปิดเบราว์เซอร์ที่ http://localhost:3001
+# เข้าใช้งานที่: http://localhost:3001
 ```
 
 ### 8.2 ใช้งานแบบ GitHub Pages (Static Standalone Mode)
-ระบบมีกลไก Dual Storage Support: เมื่อเปิดบน GitHub Pages โดยไม่มีเซิร์ฟเวอร์ Backend ระบบจะสลับไปใช้ `localStorage` โดยอัตโนมัติ ทำให้สามารถทดลองใช้งาน, โหลดข้อมูลจำลอง 30 เคส, บันทึกเคสใหม่, แก้ไข ACP, และล้างข้อมูลได้เสมือนมีเซิร์ฟเวอร์จริงทุกประการ!
+ระบบมีกลไก Dual Storage Support ในไฟล์ `client/src/services/api.ts` และ `client/src/services/storage.ts`: เมื่อเปิดบน GitHub Pages โดยไม่มีเซิร์ฟเวอร์ Backend ระบบจะสลับไปใช้ `localStorage` โดยอัตโนมัติ ทำให้ทุกหน้าตารางชีต (Round Palli, Ward ขอนตาล, Home Ward PC, Dead, DC Refer, Bereavement Radar) สามารถแสดงผลรายชื่อผู้ป่วย 30 รายได้ครบถ้วน 100% โดยไม่เกิดหน้าว่างเปล่า

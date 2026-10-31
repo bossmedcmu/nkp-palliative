@@ -1,7 +1,7 @@
 {
   "name": "nkp-palliative",
   "version": "1.0.0",
-  "description": "Palliative Care Information System & Pedigrow-style Patient Care Platform",
+  "description": "Palliative Care Information System - Social Medicine Department, Nakornping Hospital",
   "main": "server/index.js",
   "scripts": {
     "start": "node server/index.js",
@@ -14,8 +14,8 @@
     "palliative-care",
     "family-meeting",
     "advance-care-plan",
-    "pedigrow",
-    "nakornping"
+    "nakornping",
+    "social-medicine"
   ],
   "author": "NKP Palliative Care Team",
   "license": "ISC",

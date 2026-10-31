@@ -4,6 +4,7 @@ import {
   ExternalLink, Syringe, Sparkles, Filter, ChevronRight 
 } from 'lucide-react';
 import { fetchSheetData, toggleConsultReview } from '../services/api';
+import { getLocalDataset, saveLocalDataset } from '../services/storage';
 
 interface SpreadsheetViewProps {
   sheetType: 'round-palli' | 'ward-palli' | 'home-ward' | 'dead' | 'dc-refer';
@@ -39,11 +40,17 @@ export const SpreadsheetView: React.FC<SpreadsheetViewProps> = ({
   const handleToggleReview = async (consultId: string, current: number) => {
     try {
       await toggleConsultReview(consultId, current === 0);
-      loadData();
-      onRefreshStats();
     } catch (err) {
-      console.error(err);
+      // offline / static
     }
+    const local = getLocalDataset();
+    const c = local.consults.find(item => item.id === consultId);
+    if (c) {
+      c.is_reviewed_today = current === 0 ? 1 : 0;
+      saveLocalDataset(local);
+    }
+    loadData();
+    onRefreshStats();
   };
 
   const filteredData = data.filter(item => {

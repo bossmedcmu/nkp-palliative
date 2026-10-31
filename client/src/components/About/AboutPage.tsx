@@ -13,7 +13,7 @@ export const AboutPage: React.FC = () => {
         <div className="relative z-10 max-w-3xl space-y-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-white/20 backdrop-blur-md text-teal-100 border border-white/20">
             <Building2 className="w-4 h-4 text-teal-300" />
-            <span>กลุ่มงานการพยาบาล & กลุ่มงานเวชศาสตร์ประคับประคอง โรงพยาบาลนครพิงค์</span>
+            <span>กลุ่มงานเวชกรรมสังคม โรงพยาบาลนครพิงค์</span>
           </div>
 
           <h1 className="text-3xl lg:text-4xl font-black tracking-tight">
@@ -168,14 +168,14 @@ export const AboutPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Pedigrow UX Philosophy */}
+      {/* Holistic Care Journey UX Philosophy */}
       <div className="bg-slate-50 rounded-3xl p-6 lg:p-8 border border-slate-200 space-y-4">
         <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
           <Sparkles className="w-5 h-5 text-teal-600" />
-          ปรัชญาการออกแบบผังบริการ Pedigrow-Style
+          ปรัชญาการออกแบบแผนผังการดูแลผู้ป่วยแบบองค์รวม (Holistic Patient Journey)
         </h2>
         <p className="text-xs text-slate-600 leading-relaxed">
-          ระบบ Pedigrow ในแอปพลิเคชันนี้ มุ่งเน้นการมองผู้ป่วยเป็นศูนย์กลาง (Patient-Centric Longitudinal Journey) 
+          ระบบในแอปพลิเคชันนี้ มุ่งเน้นการมองผู้ป่วยเป็นศูนย์กลาง (Patient-Centric Longitudinal Journey) 
           โดยข้อมูลผู้ป่วยตั้งต้น (Core Profile) จะทำหน้าที่เป็นโหนดราก (Root Node) และแตกกิ่งไปตามบริการเฉพาะทาง 
           ทำให้ทีมสุขภาพทุกตึก ทุกกะ สามารถมองเห็นภาพรวมการดูแลผู้ป่วยรายนั้น ตั้งแต่ประวัติการส่ง Consult, ข้อตกลง ACP, 
           มติที่ประชุมครอบครัว Family Meeting, การรักษาใน Ward ขอนตาล หรือ Home Ward, จนถึงการดูแลผู้สูญเสียหลังเสียชีวิต ได้ในหน้าจอเดียว
